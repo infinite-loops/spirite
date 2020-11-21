@@ -215,7 +215,7 @@ class Intensity {
 
     transition(){
         const f = Math.random();    //TODO oscillator sum, or something
-
+        const g = Math.floor(Math.random() * 2);
         if(this.first) {    //TODO generalize
             this.val = 0;
             this.first = false;
@@ -228,13 +228,13 @@ class Intensity {
         }
         else{
             if(f < 0.5){
-                this.val === this.range.min ? this.val += 1 : this.val -= 1;
+                this.val === this.range.min ? this.val += g : this.val -= g;
             }
             // else if (f === 0.5){
             //     //TODO super unlikely - easter egg?
             // }
             else {
-                this.val === this.range.max ? this.val -= 1 : this.val += 1;
+                this.val === this.range.max ? this.val -= g : this.val += g;
             }
 
             return this.value();
