@@ -5,20 +5,121 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <style>
         body {
             padding: 0;
             margin: 0;
+            background: #000;
         }
+
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg);
+            transform:rotate(360deg);
+            transform: scale(2.5);
+        } }
+
+        #gl-canvas, main {
+            position: absolute;
+            top: 0;
+        }
+
+        #sub-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #maths-container {
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Source Code Pro', monospace;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+        }
+
+        #maths {
+
+            /*animation:spin 4s linear;*/
+        }
+
+        #sub {
+            position: fixed;
+            left: 0;
+            bottom: 50px;
+            font-family: 'Source Code Pro', monospace;
+            text-align: center;
+            width: 70%;
+            margin-left: 15%;
+            line-height: 1.1em;
+
+            font-weight: 100;
+            font-size: 55px;
+            /*text-transform: uppercase;*/
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .dud {
+            color: red
+        }
+
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     <script src="lib/p5.min.js"></script>
     <script src="lib/p5.sound.min.js"></script>
+    <script src="lib/shadertoy.js"></script>
+    <script src="lib/markov-maths.js"></script>
+    <script src="lib/markov-poem.js"></script>
+    <script src="lib/scrambler.js"></script>
     <script src="index.js"></script>
 </head>
 
 <body>
-<main>
-</main>
+<canvas id="gl-canvas"></canvas>
+<main></main>
+<div id="maths-container">
+    <div id="maths"></div>
+</div>
+<div id="sub-container">
+    <div id="sub"></div>
+</div>
+
+<script>
+
+    const narrative = new Narrative();
+    const glsl = new ShaderToy();
+    function advanceScene(){
+        narrative.advance(advanceScene);
+    }
+
+    window.onload = () => { console.log('>> go!')
+
+        init();
+        update();
+
+        function init() {
+            glsl.setSize(window.innerWidth, window.innerHeight);
+            glsl.loadFragment('gl/test0.frag');
+            window.addEventListener('resize', resize.bind(this));
+        }
+        function update() {
+            requestAnimationFrame(update);
+            glsl.render();
+        }
+        function resize() {
+            glsl.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        advanceScene()
+    };
+</script>
 </body>
 
 </html>
