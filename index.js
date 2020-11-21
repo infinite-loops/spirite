@@ -70,7 +70,7 @@ class Narrative {
         // console.log('>> advance', txt, phr)
         //TODO?
         if(this.intensity.value() === 0){
-            txt = ['this ', 'is ', 'a ', 'thought '];
+            txt = ['this is ', 'a thought '];
         }
 
         else {
