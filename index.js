@@ -46,7 +46,7 @@ class Narrative {
                 scrambleFactor: 0
             }
         };
-        this.mText = new MarkovText(EX0);
+        this.mText = new MarkovText(EX0, 4);
         this.mMaths = new MarkovMaths();
         this.scrambler = new TextScramble(document.getElementById('sub'), this.scramblerStart, this.scramblerEnd.bind(this));
         this.phrase = {words: []};
